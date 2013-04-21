@@ -1,6 +1,9 @@
 apply plugin: 'java'
 defaultTasks 'build'
 
+test.forkEvery 1
+test.maxParallelForks Runtime.getRuntime().availableProcessors();
+
 repositories {
   mavenCentral()
 }
