@@ -30,7 +30,7 @@ public class SearchInHeap {
     }
     Thread.sleep(1000);
 
-    URL oqlUrl = new URL("http://localhost:" + jhatPort + "/oql/?query=" + URLEncoder.encode("select a.toString() from [C a where /javax.security/(a.toString())", "UTF-8"));
+    URL oqlUrl = new URL("http://localhost:" + jhatPort + "/oql/?query=" + URLEncoder.encode("select a.toString() from [C a where /really_unique_string/(a.toString())", "UTF-8"));
     URLConnection oql = oqlUrl.openConnection();
     BufferedReader in = new BufferedReader(new InputStreamReader(oql.getInputStream()));
     String inputLine;
