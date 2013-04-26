@@ -26,6 +26,18 @@ public class SearchInHeap {
     }
     Thread.sleep(1000);
 
+    URL oqlUrl = new URL("http://localhost:" + jhatPort + "/oql/?query=" + URLEncoder.encode("select a.toString() from [C a where /javax.security/(a.toString())", "UTF-8"));
+    URLConnection oql = oqlUrl.openConnection();
+    BufferedReader in = new BufferedReader(new InputStreamReader(oql.getInputStream()));
+    String inputLine;
+    String xml = "";
+
+    while ((inputLine = in.readLine()) != null)
+      xml += inputLine;
+    in.close();
+
+    System.out.println(xml);
+
     Runtime.getRuntime().exec(new String[] {"pkill", "-f", jhat}).waitFor();
     new File(hprof).delete();
   }
