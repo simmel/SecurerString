@@ -1,10 +1,14 @@
+import static org.junit.Assert.*;
 import org.junit.After;
 import java.lang.management.*;
 import java.io.*;
 import java.net.*;
+import javax.xml.xpath.*;
+import org.xml.sax.InputSource;
+import org.w3c.dom.NodeList;
 
 public class SearchInHeap {
-  @After public void searchInHeap() throws IOException, InterruptedException {
+  @After public void searchInHeap() throws IOException, InterruptedException, XPathExpressionException {
     String pid = ManagementFactory.getRuntimeMXBean().getName().replaceAll("@.*", "");
     System.out.println(pid);
 
@@ -36,7 +40,11 @@ public class SearchInHeap {
       xml += inputLine;
     in.close();
 
-    System.out.println(xml);
+    xml = xml.replaceAll("(\\w+)=([^'\"][^ ]+?)([^'\"])", "$1='$2'$3");
+    String xpath = "//table[@border=1]//td";
+    XPath xPath = XPathFactory.newInstance().newXPath();
+    NodeList nodeList = (NodeList) xPath.evaluate(xpath, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+    assertEquals(0, nodeList.getLength());
 
     Runtime.getRuntime().exec(new String[] {"pkill", "-f", jhat}).waitFor();
     new File(hprof).delete();
