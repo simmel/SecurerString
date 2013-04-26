@@ -12,6 +12,10 @@ dependencies {
   testCompile 'junit:junit:4.+'
 }
 
+test {
+    systemProperty "temporaryDir", "${temporaryDir}"
+}
+
 jar {
   manifest {
     attributes 'Main-Class': "se.soy.${project.name.toLowerCase()}.${project.name}"
