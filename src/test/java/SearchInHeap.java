@@ -38,6 +38,7 @@ public class SearchInHeap {
     in.close();
 
     xml = xml.replaceAll("(\\w+)=([^'\"][^ ]+?)([^'\"])", "$1='$2'$3");
+    xml = xml.replaceAll("\000", "");
     String xpath = "//table[@border=1]//td";
     XPath xPath = XPathFactory.newInstance().newXPath();
     NodeList nodeList = (NodeList) xPath.evaluate(xpath, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
