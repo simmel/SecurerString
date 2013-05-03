@@ -1,9 +1,10 @@
 Securer"String"
 ===============
-A "string", really a char, class inspired by SecureString from .NET to be used
-for properly sanitising sensitive data such as passwords. Both input Strings
-and chars and the char that is created will be overwritten with random data
-after used.
+A "string", really a char, class inspired by
+[SecureString](http://msdn.microsoft.com/en-us/library/system.security.securestring.aspx)
+from .NET to be used for properly sanitising sensitive data such as passwords.
+Both input Strings and chars and the char that is created will be overwritten
+with random data after used.
 
 The char created is also size in a multiple of 1024 to make it
 more difficult to guess the length of the sensitive "string", e.g. a password.
