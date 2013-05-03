@@ -4,8 +4,10 @@ A "string", really a char, class inspired by SecureString from .NET to be used
 for properly sanitising sensitive data such as passwords. Both input Strings
 and chars and the char that is created will be overwritten with random data
 after used.
+
 The char created is also size in a multiple of 1024 to make it
 more difficult to guess the length of the sensitive "string", e.g. a password.
+
 *Note: The size of the input char/string can never be changed, so create a
 larger char that you are using otherwise you'll leak the length of the
 password.* This is sadly not possible when using e.g.
