@@ -47,11 +47,15 @@ public class SearchInHeap {
       String xpath = "//table[@border=1]//td";
       XPath xPath = XPathFactory.newInstance().newXPath();
       NodeList nodeList = (NodeList) xPath.evaluate(xpath, new InputSource(new StringReader(xml)), XPathConstants.NODESET);
-      assertEquals("Secret found!", 0, nodeList.getLength());
+      theAssert(nodeList.getLength());
     }
     finally {
       Runtime.getRuntime().exec(new String[] {"pkill", "-f", jhat}).waitFor();
       new File(hprof).delete();
     }
+  }
+
+  void theAssert(int found) {
+      assertEquals("Secret not found!", 0, found);
   }
 }
