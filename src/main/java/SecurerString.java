@@ -25,6 +25,16 @@ public class SecurerString implements AutoCloseable {
     secureEraseInstance(this.chars);
   }
 
+  public static void secureErase(char extinct[]) {
+    try (SecurerString c = new SecurerString(extinct)) {
+    }
+  }
+
+  public static void secureErase(String extinct) {
+    try (SecurerString c = new SecurerString(extinct)) {
+    }
+  }
+
   public void secureEraseInstance(char extinct[]) {
     byte bytes[] = new byte[extinct.length];
     SecureRandom random = new SecureRandom();
@@ -34,12 +44,33 @@ public class SecurerString implements AutoCloseable {
     }
   }
 
+  public void secureEraseInstance(String extinct) {
+    Field valueField = null;
+    try {
+      valueField = String.class.getDeclaredField("value");
+    }
+    catch (NoSuchFieldException e) {
+      e.printStackTrace();
+    }
+
+    valueField.setAccessible(true);
+    try {
+      secureEraseInstance((char[])valueField.get(extinct));
+    }
+    catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
+  }
+
   public int nearestInt(int minLength) {
     int length = 0;
     while (length < minLength) {
       length += 1024;
     }
     return length;
+  }
+
+  public SecurerString() {
   }
 
   public SecurerString(String str) {
