@@ -19,7 +19,7 @@ import se.soy.securerstring.*;
 
 public class InSecurerString extends SecurerString {
 
-  public void secureErase(char extinct[]) {
+  public void secureEraseInstance(char extinct[]) {
     System.out.println("Not erasing");
   }
 
