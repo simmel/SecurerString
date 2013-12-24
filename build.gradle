@@ -11,8 +11,4 @@ test {
     maxParallelForks Runtime.getRuntime().availableProcessors();
 }
 
-jar {
-  manifest {
-    attributes 'Main-Class': "se.soy.${project.name.toLowerCase()}.${project.name}"
-  }
-}
+jar.manifest.attributes 'Main-Class': "se.soy.${project.name.toLowerCase()}.${project.name}"
