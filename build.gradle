@@ -8,9 +8,7 @@ repositories {
   mavenCentral()
 }
 
-dependencies {
-  testCompile 'junit:junit:4.+'
-}
+dependencies.testCompile 'junit:junit:4.+'
 
 test {
     systemProperty "temporaryDir", "${temporaryDir}"
