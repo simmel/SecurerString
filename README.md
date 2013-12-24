@@ -16,6 +16,11 @@ password.* This is sadly not possible when using e.g.
 
 The class is possible because of the Java 7 feature [try-with-resources](http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) and by implementing [AutoCloseable](http://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html).
 
+You can also just use `SecurerString.secureErase()` to securely erase an char
+or a String. It's to be used sort of like `free()` in C and probably as easy to
+forget as it too. The recommendation is to use the try-with-resources version
+below.
+
 Usage/Example
 -------------
 ```java
