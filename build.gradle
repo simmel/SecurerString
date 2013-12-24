@@ -1,8 +1,6 @@
 apply plugin: 'java'
 defaultTasks 'build'
 
-test.forkEvery 1
-test.maxParallelForks Runtime.getRuntime().availableProcessors();
 
 repositories {
   mavenCentral()
@@ -12,6 +10,8 @@ dependencies.testCompile 'junit:junit:4.+'
 
 test {
     systemProperty "temporaryDir", "${temporaryDir}"
+    forkEvery 1
+    maxParallelForks Runtime.getRuntime().availableProcessors();
 }
 
 jar {
