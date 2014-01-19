@@ -40,6 +40,7 @@ public class SecurerString implements AutoCloseable {
     for (int i = 0; i < extinct.length; i = i + 1) {
       extinct[i] = (char)(bytes[i]);
     }
+    extinct = null;
   }
 
   public void secureEraseInstance(String extinct) {
@@ -58,6 +59,7 @@ public class SecurerString implements AutoCloseable {
     catch (IllegalAccessException e) {
       e.printStackTrace();
     }
+    extinct = null;
   }
 
   public int nearestInt(int minLength) {
