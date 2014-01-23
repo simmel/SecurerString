@@ -26,10 +26,16 @@ public class SecurerString implements AutoCloseable {
   }
 
   public static void secureErase(char extinct[]) {
+    if (null == extinct) {
+      return;
+    }
     try (SecurerString c = new SecurerString(extinct)) {}
   }
 
   public static void secureErase(String extinct) {
+    if (null == extinct) {
+      return;
+    }
     try (SecurerString c = new SecurerString(extinct)) {}
   }
 
