@@ -1,9 +1,11 @@
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 defaultTasks 'build'
 
 repositories.mavenCentral()
 
 group = "se.soy.${project.name.toLowerCase()}"
+version = "1.0"
 
 dependencies.testCompile 'junit:junit:4.+'
 
@@ -13,6 +15,14 @@ test {
     reports.html.enabled = false
     forkEvery 1
     maxParallelForks Runtime.getRuntime().availableProcessors();
+}
+
+publishing {
+  publications {
+    "${project.name}"(MavenPublication) {
+      from components.java
+    }
+  }
 }
 
 jar.manifest.attributes 'Main-Class': "${group}.${project.name}"
