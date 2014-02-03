@@ -25,4 +25,8 @@ publishing {
   }
 }
 
+task publishToMavenLocal.doLast {
+  println new File("build/publications/SecurerString/pom-default.xml").text
+}
+
 jar.manifest.attributes 'Main-Class': "${group}.${project.name}"
