@@ -3,6 +3,8 @@ defaultTasks 'build'
 
 repositories.mavenCentral()
 
+group = "se.soy.${project.name.toLowerCase()}"
+
 dependencies.testCompile 'junit:junit:4.+'
 
 test {
@@ -13,4 +15,4 @@ test {
     maxParallelForks Runtime.getRuntime().availableProcessors();
 }
 
-jar.manifest.attributes 'Main-Class': "se.soy.${project.name.toLowerCase()}.${project.name}"
+jar.manifest.attributes 'Main-Class': "${group}.${project.name}"
