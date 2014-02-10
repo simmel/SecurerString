@@ -53,6 +53,35 @@ publishing {
       artifact (javadocJar) {
         classifier = 'javadoc'
       }
+
+      pom.withXml {
+        asNode().children().last() + {
+          resolveStrategy = Closure.DELEGATE_FIRST
+          name project.name
+          description 'a "String" library for shredding sensitive data after use'
+          url url
+          packaging 'jar'
+          scm {
+            url project.gitRepo
+            connection "scm:${project.gitRepo}"
+            developerConnection "scm:${project.gitRepo}"
+          }
+          licenses {
+            license {
+              name 'ISC license'
+              url 'https://www.isc.org/downloads/software-support-policy/isc-license/'
+              distribution 'repo'
+            }
+          }
+          developers {
+            developer {
+              id 'simmel'
+              name 'Simon Lundström'
+              email 'simmel@soy.se'
+            }
+          }
+        }
+      }
     }
   }
 }
