@@ -21,6 +21,13 @@ or a String. It's to be used sort of like `free()` in C and probably as easy to
 forget as it too. The recommendation is to use the try-with-resources version
 below.
 
+TODO
+----
+
+* Use `value` instead of `chars` as the property
+* Publish on Maven Central
+
+
 Usage/Example
 -------------
 ```java
