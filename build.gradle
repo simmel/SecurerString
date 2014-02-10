@@ -6,8 +6,19 @@ repositories.mavenCentral()
 
 group = "se.soy.${project.name.toLowerCase()}"
 version = "1.0"
+ext {
+  url = "https://github.com/simmel/${project.name}"
+  gitRepo = "git@github.com:simmel/${project.name}.git"
+  pomFile = file("$project.buildDir/pom.xml")
+}
 
 dependencies.testCompile 'junit:junit:4.+'
+
+model {
+  tasks.generatePomFileForJarPublication {
+    destination = project.pomFile
+  }
+}
 
 test {
     systemProperty "temporaryDir", "${temporaryDir}"
@@ -27,6 +38,10 @@ task javadocJar (type: Jar, dependsOn: javadoc) {
   from javadoc.destinationDir
 }
 
+task publishToMavenLocal.doLast {
+  println pomFile.text
+}
+
 publishing {
   publications {
     jar(MavenPublication) {
@@ -40,10 +55,6 @@ publishing {
       }
     }
   }
-}
-
-task publishToMavenLocal.doLast {
-  println new File("build/publications/SecurerString/pom-default.xml").text
 }
 
 jar.manifest.attributes 'Main-Class': "${group}.${project.name}"
