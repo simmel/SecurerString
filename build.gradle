@@ -38,8 +38,29 @@ task javadocJar (type: Jar, dependsOn: javadoc) {
   from javadoc.destinationDir
 }
 
-task publishToMavenLocal.doLast {
-  println pomFile.text
+afterEvaluate {
+  task publish (dependsOn: publishing.publications.jar.artifacts + generatePomFileForJarPublication, overwrite: true) << {
+    // FIXME: Why is project. needed? It should work without:
+    // http://www.gradle.org/docs/current/userguide/tutorial_this_and_that.html#sub:checking_for_project_properties
+    if (!project.hasProperty('repo') && !project.hasProperty('repositoryId')) {
+      println "NOTE: repo and repositoryId isn't specified, so deploying locally."
+      println "NOTE: Usage, e.g: gradle -Prepo=https://oss.sonatype.org/content/repositories/snapshots -PrepositoryId=sonatype-nexus-snapshots"
+      ext.repo = "file://repo"
+      ext.repositoryId = ""
+    }
+
+    publishing.publications.jar.artifacts.each {
+      def m = it.file =~ /.*-([a-z]+?)\..*$/
+      def command = ["mvn", "-f", project.pomFile, "-DuniqueVersion=false", "gpg:sign-and-deploy-file", "-Durl=${repo}", "-DpomFile=${project.pomFile}", "-Dfile=${it.file}", "-DrepositoryId=${repositoryId}"]
+      if (m) {
+        command << "-Dclassifier=${m[0][1]}"
+      }
+
+      exec {
+        commandLine command
+      }
+    }
+  }
 }
 
 publishing {
