@@ -24,6 +24,7 @@ below.
 TODO
 ----
 
+* Fix the exception mess
 * Make byte arrays eraseable
 
 
