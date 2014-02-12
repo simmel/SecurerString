@@ -57,6 +57,12 @@ publishing {
       pom.withXml {
         asNode().children().last() + {
           resolveStrategy = Closure.DELEGATE_FIRST
+          parent {
+            resolveStrategy = Closure.DELEGATE_ONLY
+            groupId 'org.sonatype.oss'
+            artifactId 'oss-parent'
+            version '7'
+          }
           name project.name
           description 'a "String" library for shredding sensitive data after use'
           url url
