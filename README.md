@@ -24,7 +24,7 @@ below.
 TODO
 ----
 
-* Publish on Maven Central
+* Make byte arrays eraseable
 
 
 Usage/Example
