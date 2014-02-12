@@ -18,11 +18,11 @@ import java.security.SecureRandom;
 
 public class SecurerString implements AutoCloseable {
 
-  public char[] chars;
+  public char[] value;
 
   @Override
   public void close() {
-    secureEraseInstance(this.chars);
+    secureEraseInstance(this.value);
   }
 
   public static void secureErase(char extinct[]) {
@@ -90,8 +90,8 @@ public class SecurerString implements AutoCloseable {
     valueField.setAccessible(true);
 
     try {
-      this.chars = new char[nearestInt(((char[])valueField.get(str)).length)];
-      System.arraycopy((char[])valueField.get(str), 0, this.chars, 0, ((char[])valueField.get(str)).length);
+      this.value = new char[nearestInt(((char[])valueField.get(str)).length)];
+      System.arraycopy((char[])valueField.get(str), 0, this.value, 0, ((char[])valueField.get(str)).length);
       secureEraseInstance((char[])valueField.get(str));
     }
     catch (IllegalAccessException e) {
@@ -100,8 +100,8 @@ public class SecurerString implements AutoCloseable {
   }
 
   public SecurerString(char[] chr) {
-    this.chars = new char[nearestInt(chr.length)];
-    System.arraycopy(chr, 0, this.chars, 0, chr.length);
+    this.value = new char[nearestInt(chr.length)];
+    System.arraycopy(chr, 0, this.value, 0, chr.length);
     secureEraseInstance(chr);
   }
 }

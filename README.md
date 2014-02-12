@@ -24,7 +24,6 @@ below.
 TODO
 ----
 
-* Use `value` instead of `chars` as the property
 * Publish on Maven Central
 
 
@@ -44,7 +43,7 @@ public class SecureStringur {
 
     try (SecurerString p = new SecurerString(password)) {
       System.out.print("SecurerString is: ");
-      System.out.println(p.chars);
+      System.out.println(p.value);
     }
     System.out.print("Password was: ");
     System.out.println(password);
