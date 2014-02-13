@@ -1,9 +1,3 @@
-model {
-  tasks.generatePomFileForJarPublication {
-    destination = project.pomFile
-  }
-}
-
 afterEvaluate {
   task publish (dependsOn: publishing.publications.jar.artifacts + generatePomFileForJarPublication, overwrite: true) << {
     // FIXME: Why is project. needed? It should work without:
@@ -17,7 +11,7 @@ afterEvaluate {
 
     publishing.publications.jar.artifacts.each {
       def m = it.file =~ /.*-([a-z]+?)\..*$/
-      def command = ["mvn", "-f", project.pomFile, "gpg:sign-and-deploy-file", "-DpomFile=${project.pomFile}", "-Dfile=${it.file}", "-Durl=${repo}", "-DrepositoryId=${repositoryId}"]
+      def command = ["mvn", "-f", generatePomFileForJarPublication.destination, "gpg:sign-and-deploy-file", "-DpomFile=${generatePomFileForJarPublication.destination}", "-Dfile=${it.file}", "-Durl=${repo}", "-DrepositoryId=${repositoryId}"]
       if (m) {
         command << "-Dclassifier=${m[0][1]}"
       }
