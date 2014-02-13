@@ -9,16 +9,25 @@ afterEvaluate {
       ext.repositoryId = ""
     }
 
+    def classifiers = []
+    def file
+    def files = []
     publishing.publications.jar.artifacts.each {
       def m = it.file =~ /.*-([a-z]+?)\..*$/
-      def command = ["mvn", "-f", generatePomFileForJarPublication.destination, "gpg:sign-and-deploy-file", "-DpomFile=${generatePomFileForJarPublication.destination}", "-Dfile=${it.file}", "-Durl=${repo}", "-DrepositoryId=${repositoryId}"]
       if (m) {
-        command << "-Dclassifier=${m[0][1]}"
+        classifiers << "${m[0][1]}"
+        files << it.file
       }
-
-      exec {
-        commandLine command
+      else {
+        file = it.file
       }
+    }
+    def types = files.collect { "jar" }.join(',')
+    classifiers = classifiers.join(',')
+    files = files.join(',')
+    def command = ["mvn", "-f", generatePomFileForJarPublication.destination, "gpg:sign-and-deploy-file", "-DpomFile=${generatePomFileForJarPublication.destination}", "-Dfile=${file}", "-Dfiles=${files}", "-Dclassifiers=${classifiers}", "-Dtypes=${types}", "-Durl=${repo}", "-DrepositoryId=${repositoryId}"]
+    exec {
+      commandLine command
     }
   }
 }
@@ -32,3 +41,8 @@ task javadocJar (type: Jar, dependsOn: javadoc) {
   classifier = 'javadoc'
   from javadoc.destinationDir
 }
+
+task cleanRepo(type: Delete) {
+   delete 'repo'
+}
+clean.dependsOn cleanRepo
