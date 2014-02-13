@@ -21,11 +21,11 @@ model {
 }
 
 test {
-    systemProperty "temporaryDir", "${temporaryDir}"
-    reports.junitXml.enabled = false
-    reports.html.enabled = false
-    forkEvery 1
-    maxParallelForks Runtime.getRuntime().availableProcessors();
+  systemProperty "temporaryDir", "${temporaryDir}"
+  reports.junitXml.enabled = false
+  reports.html.enabled = false
+  forkEvery 1
+  maxParallelForks Runtime.getRuntime().availableProcessors();
 }
 
 task sourceJar (type: Jar) {
