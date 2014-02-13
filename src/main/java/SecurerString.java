@@ -54,17 +54,15 @@ public class SecurerString implements AutoCloseable {
     try {
       valueField = String.class.getDeclaredField("value");
     }
-    catch (NoSuchFieldException e) {
-      e.printStackTrace();
-    }
+    // This will never happen, FLW...
+    catch (NoSuchFieldException e) {}
 
     valueField.setAccessible(true);
     try {
       secureEraseInstance((char[])valueField.get(extinct));
     }
-    catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
+    // This will never happen, FLW...
+    catch (IllegalAccessException e) {}
     extinct = null;
   }
 
@@ -84,9 +82,8 @@ public class SecurerString implements AutoCloseable {
     try {
       valueField = String.class.getDeclaredField("value");
     }
-    catch (NoSuchFieldException e) {
-      e.printStackTrace();
-    }
+    // This will never happen, FLW...
+    catch (NoSuchFieldException e) {}
     valueField.setAccessible(true);
 
     try {
@@ -94,9 +91,8 @@ public class SecurerString implements AutoCloseable {
       System.arraycopy((char[])valueField.get(str), 0, this.value, 0, ((char[])valueField.get(str)).length);
       secureEraseInstance((char[])valueField.get(str));
     }
-    catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
+    // This will never happen, FLW...
+    catch (IllegalAccessException e) {}
   }
 
   public SecurerString(char[] chr) {
