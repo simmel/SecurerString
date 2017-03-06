@@ -1,7 +1,5 @@
 afterEvaluate {
   task publish (dependsOn: publishing.publications.jar.artifacts + generatePomFileForJarPublication, overwrite: true) << {
-    // FIXME: Why is project. needed? It should work without:
-    // http://www.gradle.org/docs/current/userguide/tutorial_this_and_that.html#sub:checking_for_project_properties
     if (!project.hasProperty('repo') && !project.hasProperty('repositoryId')) {
       println "NOTE: repo and repositoryId isn't specified, so deploying locally."
       println "NOTE: Usage, e.g: gradle -Prepo=https://oss.sonatype.org/content/repositories/snapshots -PrepositoryId=sonatype-nexus-snapshots"
