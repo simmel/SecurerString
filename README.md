@@ -25,7 +25,11 @@ TODO
 ----
 
 * Make byte arrays eraseable
-
+* Replace jhat since it's [removed from JDK9](https://wiki.openjdk.java.net/display/Adoption/JDK+9+Outreach#JDK9Outreach-RemovethejhatTool)
+  and no replacement was announced in [JEP241](http://openjdk.java.net/jeps/241).
+  A possible way forward is to use Eclipse MAT from the CLI and either
+  [write a report](http://wiki.eclipse.org/MemoryAnalyzer/Extending_Memory_Analyzer#Reports_in_Memory_Analyzer)
+  or [preferably use the API](http://wiki.eclipse.org/MemoryAnalyzer/Extending_Memory_Analyzer#Calling_One_Query_from_Another).
 
 Usage/Example
 -------------
