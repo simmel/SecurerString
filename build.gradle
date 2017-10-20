@@ -22,6 +22,19 @@ test {
   maxParallelForks Runtime.getRuntime().availableProcessors();
 }
 
+task checkJhat {
+  def result = exec {
+    commandLine "pgrep", "-f", "jhat -port"
+    standardOutput new OutputStream() { @Override public void write(int b) { } };
+    ignoreExitValue true
+  }
+  if (!result.getExitValue()) {
+    logger.error('\033[0;31mERROR: Found jhat(s) running, this will produce erroneous test results!\033[0m')
+    System.exit(1)
+  }
+}
+test.dependsOn checkJhat
+
 publishing {
   publications {
     jar(MavenPublication) {
