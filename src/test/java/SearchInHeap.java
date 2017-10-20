@@ -11,6 +11,7 @@ public class SearchInHeap {
   @After public void searchInHeap() throws IOException, InterruptedException, XPathExpressionException {
     String pid = ManagementFactory.getRuntimeMXBean().getName().replaceAll("@.*", "");
     String tmp = System.getProperty("temporaryDir");
+    new File(tmp).mkdirs();
     String hprof = tmp + "/" + pid + ".hprof";
     String jhatPort = Integer.toString(7000 + Integer.parseInt(System.getProperty("org.gradle.test.worker")));
     String jhat = "jhat -port " + jhatPort + " " + hprof;
